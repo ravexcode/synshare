@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.1]
+
+### Fixes
+- Android fix: mDNS service registration issue.
+
 ## [0.4.0]
 
 ### Added
