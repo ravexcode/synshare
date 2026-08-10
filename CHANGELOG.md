@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.1]
+
+### Fixed
+- Android release build: `drawable-v21/launch_background.xml` referenced missing `mipmap/launch_image`; replaced with black background matching base drawable.
+
 ## [1.0.0]
 
 ### Added
