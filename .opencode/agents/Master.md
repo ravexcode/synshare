@@ -848,6 +848,16 @@ Stream file
 
 The exact networking package/protocol may be selected during implementation.
 
+### Implemented decision (0.3.0)
+
+- mDNS via the `bonsoir` package (native NSD/Bonjour/Avahi).
+- Service type: `_synshare._tcp`.
+- Reserved transfer TCP port: `58410` (see `lib/constraints/network.dart`).
+- TXT records: `instance` (per-session unique id, used to filter out the device's own advertisement) and `platform` (`DevicePlatform.name`).
+- Advertised service name is the device hostname; falls back to `Synshare <Platform>` when the hostname is empty/`localhost`.
+- Discovery service: `lib/services/discovery/discovery_service.dart` (`DeviceDiscoveryService`, `ChangeNotifier`). UI never touches networking directly; the devices screen listens via `ListenableBuilder`.
+- `DeviceDiscoveryService` is injectable into `SynshareApp` for tests; `debugSetDevices` is the test-only injection hook.
+
 Do not prematurely lock the project into a protocol without validating:
 
 - Android support.
@@ -877,12 +887,16 @@ Consider:
 - Bluetooth permissions.
 - Android service lifecycle.
 
+Implemented (0.3.0): `INTERNET`, `ACCESS_NETWORK_STATE`, `ACCESS_WIFI_STATE`, `CHANGE_WIFI_MULTICAST_STATE` in `AndroidManifest.xml`.
+
 ### iOS
 
 - Local Network permission.
 - Bonjour service declarations.
 - Bluetooth permissions.
 - Background execution restrictions.
+
+Implemented (0.3.0): `NSLocalNetworkUsageDescription` + `NSBonjourServices` (`_synshare._tcp`) in `ios/Runner/Info.plist`.
 
 ### Linux
 
@@ -902,6 +916,8 @@ Consider:
 - Local Network permission.
 - Bonjour.
 - Sandbox/entitlements if applicable.
+
+Implemented (0.3.0): `NSLocalNetworkUsageDescription` + `NSBonjourServices` in `macos/Runner/Info.plist`; `com.apple.security.network.server` + `com.apple.security.network.client` in both entitlements files.
 
 ---
 

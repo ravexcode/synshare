@@ -28,5 +28,11 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Synshare discovers and shares documents with nearby devices on your local network.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_synshare._tcp</string>
+	</array>
 </dict>
 </plist>
