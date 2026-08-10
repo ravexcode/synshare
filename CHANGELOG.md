@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.2]
+
+### Added
+- Github workflows added
+
 ## [0.4.1]
 
 ### Fixes
