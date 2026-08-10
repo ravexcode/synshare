@@ -53,6 +53,26 @@ class DeviceDiscoveryService extends ChangeNotifier {
 
   DiscoveryStatus get status => _status;
 
+  /// The name this device advertises on the local network.
+  String get deviceName => _deviceName;
+
+  /// Updates the connection state of a discovered device.
+  void markConnected(String id, bool connected) {
+    final index = _devices.indexWhere((d) => d.id == id);
+    if (index < 0) return;
+    final old = _devices[index];
+    _devices[index] = Device(
+      id: old.id,
+      name: old.name,
+      platform: old.platform,
+      address: old.address,
+      port: old.port,
+      connected: connected,
+      connectionType: old.connectionType,
+    );
+    notifyListeners();
+  }
+
   /// Starts advertising and browsing. Safe to call once; repeated calls
   /// are no-ops while already running.
   Future<void> start() async {

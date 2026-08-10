@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.4.0]
+
+### Added
+- Device pairing over TCP: tap a device, HELLO handshake validates the peer, card flips to connected.
+- Send screen: back header with device name, device platform icon, "Select files" button, sortable file list, sticky send button.
+- File sorting: latest, oldest, A-Z, Z-A, char-num, num-char.
+- File selection via `file_picker`; native dialogs on desktop, system picker on mobile.
+- Streaming file transfer over LAN (`SYNSHARE/1 SEND` protocol); no whole-file reads into memory.
+- Incoming transfer dialog with accept/reject, then progress + save to downloads (desktop) or app documents (mobile).
+- Loopback pairing + transfer test (`test/transfer_service_test.dart`).
+
+### Changed
+- Devices screen: tapping a device now pairs and opens the send screen; handles inbound transfers.
+- `TransferService` is injectable and supports custom port for tests.
+
+### Technical
+- Added `file_picker ^11.0.3` and `path_provider ^2.1.6`.
+
 ## [0.3.0]
 
 ### Added

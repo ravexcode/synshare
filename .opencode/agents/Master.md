@@ -858,6 +858,17 @@ The exact networking package/protocol may be selected during implementation.
 - Discovery service: `lib/services/discovery/discovery_service.dart` (`DeviceDiscoveryService`, `ChangeNotifier`). UI never touches networking directly; the devices screen listens via `ListenableBuilder`.
 - `DeviceDiscoveryService` is injectable into `SynshareApp` for tests; `debugSetDevices` is the test-only injection hook.
 
+### Implemented decision (0.4.0)
+
+- Pairing and transfer protocol (plain text header over TCP, then raw bytes).
+- Pairing: client sends `SYNSHARE/1 HELLO <name>`; server replies `SYNSHARE/1 HELLO-ACK`. On success the device is marked connected.
+- Sending: per file, a fresh TCP connection sends `SYNSHARE/1 SEND\n<fileName>\n<size>\n` followed by the raw file stream. No `readAsBytes`; files are streamed.
+- Receiver: reads the header, raises an `IncomingTransfer`, and waits for an explicit user accept/reject dialog before saving. One inbound transfer at a time (MVP).
+- Saved to the platform downloads directory (desktop) or application documents (mobile).
+- Transfer service: `lib/services/transfer/transfer_service.dart`. Socket buffering: `lib/services/transfer/socket_reader.dart` (`SocketReader`, line reads for the header, raw stream for file bytes).
+- File selection: `file_picker`; storage paths: `path_provider`.
+- File list sorting (`FileSort`): latest, oldest, A-Z, Z-A, char-num, num-char.
+
 Do not prematurely lock the project into a protocol without validating:
 
 - Android support.

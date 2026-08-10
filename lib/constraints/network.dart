@@ -7,4 +7,10 @@ abstract final class NetworkConfig {
   ///
   /// The transfer server binds this port when file sending lands.
   static const int transferPort = 58410;
+
+  /// Plain-text protocol id used in pairing and transfer headers.
+  static const String protocol = 'SYNSHARE/1';
+
+  /// Default timeout for pairing and per-transfer TCP operations.
+  static const Duration connectTimeout = Duration(seconds: 5);
 }
