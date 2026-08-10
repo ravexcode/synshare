@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.0]
+
+### Added
+- Logos
+
 ## [0.4.2]
 
 ### Added
